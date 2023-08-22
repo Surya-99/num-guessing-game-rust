@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            background-color: cadetblue;
+        }
+        .head{
+            font-size: 40px;
+            padding-left: 36%;
+        }
+        .txt{
+            font-size: 24px;
+            padding-left: 38%;
+        }
+        #guessInput,#guessButton{
+            font-size:21px;
+        }
+        #guessInput{
+            margin-left: 43%;
+        }
+        #resultMessage{
+            font-size: 20px;
+            color: navy;
+            font-style: bold;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 class="head">Number Guessing Game</h1>
+    <p class="txt">Guess a number between 1 and 100:</p>
+    <input type="number" id="guessInput" min="1" max="100">
+    <button id="guessButton">Guess</button>
+    <center><b><p id="resultMessage"></p></b></center>
+    <script>
+        const guessButton = document.getElementById("guessButton");
+        const guessInput = document.getElementById("guessInput");
+        const resultMessage = document.getElementById("resultMessage");
+    
+        guessButton.addEventListener("click", async () => {
+            const guess = parseInt(guessInput.value, 10);
+    
+            if (!isNaN(guess)) {
+                const response = await fetch(`/guess?value=${guess}`);
+                const result = await response.text();
+                resultMessage.textContent = result;
+            }
+        });
+    </script>
+</body>
+</html>
